@@ -7,10 +7,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Product::class, function (Faker $faker) {
     return [
-        'name' => $faker->word,
+        'title' => $faker->word,
         'price' => $faker->randomFloat(2,500,3000),
         'stock' => $faker->numberBetween(1,100),
-        'discount' => $faker->randomFloat(2, 100, 400),
+        'discount' => $faker->randomFloat(2, 0, 0.9),
         'description' => $faker->text
     ];
 });

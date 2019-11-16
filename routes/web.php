@@ -12,7 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::resource('orders','OrderController');
+    $products = App\Product::Orderby('id', 'DESC')->take(6)->get();
+    return view('welcome', ['products' => $products]);
+});
+Route::get('/login', function () {
+
+    return view('login');
+})->name('login');
+
+Route::resource('orders', 'OrderController');
+Route::resource('products', 'ProductController');
