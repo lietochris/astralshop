@@ -97,6 +97,27 @@
                     @endforeach
                 </ul>
             </div>
+            <div class="mt-4">
+                <form method="post" action="{{route('comments.store')}}">
+                    @csrf
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Deja un comentario
+                        </label>
+                        <textarea
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            name="comment" rows="3">
+                        </textarea>
+                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                    </div>
+                    <div>
+                        <button class="px-6 mx-1 py-4 bg-indigo-500 hover:bg-indigo-600 font-semibold text-white shadow"
+                                type="submit">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
 @endsection

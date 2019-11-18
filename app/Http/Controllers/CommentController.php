@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use foo\bar;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -35,7 +36,12 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $comment = Comment::create([
+            'product_id' => $request->product_id,
+            'comment' => $request->comment
+        ]);
+
+        return back();
     }
 
     /**

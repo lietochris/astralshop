@@ -30,3 +30,4 @@ Route::post('/confirm', 'Transactions\BuyController@showConfirmForm')->name('buy
 Route::post('/buy', 'Transactions\BuyController@confirm_buy')->name('buy')->middleware('auth');
 
 Route::resource('addresses', 'AddressController')->middleware('auth');
+Route::resource('comments', 'CommentController')->middleware('auth');
