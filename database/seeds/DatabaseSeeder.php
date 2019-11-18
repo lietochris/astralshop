@@ -29,14 +29,6 @@ class DatabaseSeeder extends Seeder
         factory(App\Payout::class, 10)->create();
         $orders = factory(App\Order::class, 10)->create();
 
-        // Set many to many tables
-//        App\Order::all()->each(function ($order) use ($products) {
-//            $order->products()->attach(
-//                $products->random(rand(1, 10))->pluck('id')->toArray(),
-//                ['quantity' => rand(1, 20)]
-//            );
-//        });
-
         App\Product::all()->each(function ($product) use ($orders) {
             $product->orders()->attach(
                 $orders->random(rand(1, 10))->pluck('id')->toArray(),

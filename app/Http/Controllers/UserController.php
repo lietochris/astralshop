@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class OrderController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::Orderby('id', 'DESC')->where('user_id', Auth::id())->get();
-        return view('orders.index', ['orders' => $orders]);
+        //
     }
 
     /**
@@ -43,13 +42,14 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Order $order
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        if (Auth::id() == $order->user_id) {
-            return view('orders.show', ['order' => $order]);
+        $user = User::find($id);
+        if (Auth::id() == $user->id) {
+            return view('users.show', ['user' => $user]);
         }
         return back();
     }
@@ -57,10 +57,10 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Order $order
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit($id)
     {
         //
     }
@@ -69,10 +69,10 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Order $order
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -80,10 +80,10 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Order $order
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
         //
     }

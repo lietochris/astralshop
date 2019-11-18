@@ -33,8 +33,8 @@
             </div>
             <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div class="text-sm lg:flex-grow">
-                    <form action="">
-                        <input class="border border-white w-1/2 rounded-full p-2" placeholder="Busca un producto"
+                    <form action="{{route('products.index')}}" method="get">
+                        <input name="title" class="border border-white w-1/2 rounded-full p-2" placeholder="Busca un producto"
                                type="text">
                         <button type="submit">
                             <svg class="fill-current text-yellow-900 h-5 w-5 mr-2" width="50" height="50" version="1.1"
@@ -51,10 +51,39 @@
                     </form>
                 </div>
                 <div>
+                    @auth
+                        <div class="dropdown">
+                            <a href="{{route('login')}}"
+                               class="relative bg-yellow-500 inline-block inline-flex text-sm px-4 py-3 leading-none rounded-full mt-4 lg:mt-0">
+                                <span class="text-black">{{auth()->user()->name}}</span>
+                                <svg class="fill-current text-black h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                </svg>
+                            </a>
+                            <ul class="absolute hidden text-gray-700 pt-1 dropdown-menu" style="transform: translate(-5rem,0)">
+                                <li>
+                                    <a class="bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="{{ route('users.show', auth()->id()) }}">Mis datos</a>
+                                </li>
+                                <li>
+                                    <a class="bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="#">Subir un
+                                        producto</a>
+                                </li>
+                                <li>
+                                    <form class="bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap"
+                                          action="{{route('logout')}}" method="post">
+                                        @csrf
+                                        <button class="" type="submit">Salir</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @endauth
+                    @guest
                     <a href="{{route('login')}}"
                        class="inline-block text-sm px-4 py-3 leading-none bg-yellow-500 hover:bg-yellow-400 rounded-full mt-4 lg:mt-0">
                         Iniciar sesión
                     </a>
+                    @endguest
                 </div>
             </div>
         </nav>
@@ -81,7 +110,7 @@
                     <a href="{{route('products.show', $product->id)}}">
                         @if ($product->images->count())
                             <div>
-                                <img class="h-56" src="{{ $product->images[0]->url }}" alt="">
+                                <img class="h-56 w-full" src="{{ $product->images[0]->url }}" alt="">
                             </div>
                         @else
                             <div class="h-56 bg-yellow-500 flex justify-center items-center">

@@ -5,12 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Astral shop | login</title>
+    <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
 <main class="min-h-screen flex flex-col">
-    <nav class="flex bg-yellow-400 items-center justify-between flex-wrap p-6">
+    <nav class="flex bg-yellow-400 items-center justify-between flex-wrap px-5 py-1">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <svg class="fill-current text-yellow-900 h-12 w-12 mr-2" width="54" height="54"
                  viewBox="0 0 512 512.00016" xmlns="http://www.w3.org/2000/svg">
@@ -25,54 +25,86 @@
             </svg>
             <a href="{{route('index')}}" class="font-semibold text-xl text-yellow-900 tracking-tight">Astral Shop</a>
         </div>
+        <div class="block lg:hidden">
+            <button
+                class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+            </button>
+        </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+            <div class="text-sm lg:flex-grow">
+                <form class="flex flex-row" action="{{route('products.index')}}" method="get">
+                    <input name="title" class="border border-white w-1/2 rounded-full p-2"
+                           placeholder="Busca un producto"
+                           type="text">
+                    <button class="inline-flex items-center ml-2" type="submit">
+                        <svg class="fill-current text-yellow-900 h-5 w-5 mr-2" width="50" height="50" version="1.1"
+                             id="Capa_1"
+                             xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 56.966 56.966" xml:space="preserve">
+<path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23
+	s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92
+	c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17
+	s-17-7.626-17-17S14.61,6,23.984,6z"/>
+</svg>
+
+                    </button>
+                </form>
+            </div>
+            <div class="w-full block justify-end lg:flex lg:items-center lg:w-auto">
+                <div class="text-sm lg:flex-grow">
+                    <a href="{{route('orders.index')}}" class="block mt-4 lg:inline-block lg:mt-0 ">
+                        Mis compras
+                    </a>
+                </div>
+                <div class="dropdown">
+                    <a href="{{route('login')}}"
+                       class="relative inline-block inline-flex text-sm px-4 py-3 leading-none rounded-full mt-4 lg:mt-0">
+                        <span>{{auth()->user()->name}}</span>
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </a>
+                    <ul class="absolute hidden text-gray-700 pt-1 dropdown-menu" style="transform: translate(-5rem,0)">
+                        <li>
+                            <a class="bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="{{ route('users.show', auth()->id()) }}">Mis datos</a>
+                        </li>
+                        <li>
+                            <a class="bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="#">Subir un
+                                producto</a>
+                        </li>
+                        <li>
+                            <form class="bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap"
+                                  action="{{route('logout')}}" method="post">
+                                @csrf
+                                <button class="" type="submit">Salir</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
-    <div class="flex-1 flex bg-yellow-400">
 
+    <div class="flex-1 flex flex-col">
+        @yield('content')
     </div>
-    <div class="flex-1 bg-gray-100 flex justify-center ">
-        <div class="lg:w-1/3 w-full lg:px-0 px-3 absolute" style="transform: translate(0,-10rem)">
-            <form action="{{route('login')}}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                @csrf
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                        Correo electronico
-                    </label>
-                    <input name="email"
-                        class="shadow appearance-none border {{$errors->has('email') ? 'border-red-500': ''}} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username" type="text" placeholder="Correo electronico">
-                    @if($errors->has('email'))
-                        <p class="text-red-500 text-xs italic">{{$errors->first('email')}}</p>
-                    @endif
-                </div>
-                <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                        Contraseña
-                    </label>
-                    <input name="password"
-                        class="shadow appearance-none border {{$errors->has('password') ? 'border-red-500': ''}} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password" type="password" placeholder="******************">
-                    @if($errors->has('password'))
-                        <p class="text-red-500 text-xs italic">{{$errors->first('password')}}</p>
-                    @endif
-                </div>
-                <div class="flex items-center justify-between">
-                    <button
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit">
-                        Entrar
-                    </button>
-                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="{{route('register')}}">
-                       Registarse
-                    </a>
-                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                        ¿Olvidaste tu contraseña?
-                    </a>
-                </div>
-            </form>
+    <footer>
+        <div class="flex flex-col">
+            <div class="h-12 bg-yellow-500"></div>
+            <div class="p-1 bg-yellow-600">
+           <span class="text-sm text-yellow-900">
+               Trevilla Figueroa Christopher
+           </span>
+            </div>
         </div>
-    </div>
+    </footer>
 </main>
+
+<script src="{{asset('js/app.js')}}"></script>
+@yield('javascript')
 </body>
 </html>

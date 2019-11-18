@@ -23,7 +23,7 @@
                 <path
                     d="m320.101562 296.617188h-24.046874c-4.140626 0-7.5 3.359374-7.5 7.5 0 4.144531 3.359374 7.5 7.5 7.5h24.046874c4.140626 0 7.5-3.355469 7.5-7.5 0-4.140626-3.359374-7.5-7.5-7.5zm0 0"/>
             </svg>
-            <a href="{{route('index')}}" class="font-semibold text-xl text-yellow-900 tracking-tight">Astral Shop</a>
+            <span class="font-semibold text-xl text-yellow-900 tracking-tight">Astral Shop</span>
         </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         </div>
@@ -32,16 +32,38 @@
 
     </div>
     <div class="flex-1 bg-gray-100 flex justify-center ">
-        <div class="lg:w-1/3 w-full lg:px-0 px-3 absolute" style="transform: translate(0,-10rem)">
-            <form action="{{route('login')}}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="lg:w-1/3 w-full lg:px-0 px-3 absolute" style="transform: translate(0,-17rem)">
+            <form action="{{route('register')}}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                       Nombre
+                    </label>
+                    <input name="name"
+                           class="shadow appearance-none border {{$errors->has('name') ? 'border-red-500': ''}} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                           id="username" type="text" placeholder="Ejemplo">
+                    @if($errors->has('name'))
+                        <p class="text-red-500 text-xs italic">{{$errors->first('name')}}</p>
+                    @endif
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                        Apellidos
+                    </label>
+                    <input name="last_name"
+                           class="shadow appearance-none border {{$errors->has('last_name') ? 'border-red-500': ''}} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                           id="username" type="text" placeholder="Ejemplo">
+                    @if($errors->has('last_name'))
+                        <p class="text-red-500 text-xs italic">{{$errors->first('last_name')}}</p>
+                    @endif
+                </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                         Correo electronico
                     </label>
                     <input name="email"
-                        class="shadow appearance-none border {{$errors->has('email') ? 'border-red-500': ''}} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username" type="text" placeholder="Correo electronico">
+                           class="shadow appearance-none border {{$errors->has('email') ? 'border-red-500': ''}} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                           id="username" type="text" placeholder="Correo electronico">
                     @if($errors->has('email'))
                         <p class="text-red-500 text-xs italic">{{$errors->first('email')}}</p>
                     @endif
@@ -51,24 +73,18 @@
                         Contraseña
                     </label>
                     <input name="password"
-                        class="shadow appearance-none border {{$errors->has('password') ? 'border-red-500': ''}} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password" type="password" placeholder="******************">
+                           class="shadow appearance-none border {{$errors->has('password') ? 'border-red-500': ''}} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                           id="password" type="password" placeholder="******************">
                     @if($errors->has('password'))
                         <p class="text-red-500 text-xs italic">{{$errors->first('password')}}</p>
                     @endif
                 </div>
                 <div class="flex items-center justify-between">
                     <button
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        class="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit">
-                        Entrar
+                        Registrarse
                     </button>
-                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="{{route('register')}}">
-                       Registarse
-                    </a>
-                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                        ¿Olvidaste tu contraseña?
-                    </a>
                 </div>
             </form>
         </div>

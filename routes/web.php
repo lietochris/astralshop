@@ -11,15 +11,22 @@
 |
 */
 
+use App\Product;
+
 Route::get('/', function () {
 
     $products = App\Product::Orderby('id', 'DESC')->take(6)->get();
     return view('welcome', ['products' => $products]);
-});
-Route::get('/login', function () {
+})->name('index');
 
-    return view('login');
-})->name('login');
+Auth::routes();
 
-Route::resource('orders', 'OrderController');
+Route::resource('orders', 'OrderController')->middleware('auth');
+Route::resource('users', 'UserController')->middleware('auth');
+
 Route::resource('products', 'ProductController');
+Route::post('/addCart', 'Transactions\BuyController@addCart')->name('addCart')->middleware('auth');
+Route::post('/confirm', 'Transactions\BuyController@showConfirmForm')->name('buy.showConfirmForm')->middleware('auth');
+Route::post('/buy', 'Transactions\BuyController@confirm_buy')->name('buy')->middleware('auth');
+
+Route::resource('addresses', 'AddressController')->middleware('auth');
