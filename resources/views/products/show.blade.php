@@ -93,7 +93,7 @@
             <div>
                 <ul>
                     @foreach($product->commentaries as $commentary)
-                        <li class="px-4 py-2 bg-gray-200">{{$commentary->comment}}</li>
+                        <li class="px-4 rounded-full my-4 py-2 bg-gray-200">{{$commentary->comment}}</li>
                     @endforeach
                 </ul>
             </div>

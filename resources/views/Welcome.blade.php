@@ -60,13 +60,9 @@
                                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                                 </svg>
                             </a>
-                            <ul class="absolute hidden text-gray-700 pt-1 dropdown-menu" style="transform: translate(-5rem,0)">
+                            <ul class="absolute hidden text-gray-700 pt-1 dropdown-menu" >
                                 <li>
                                     <a class="bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="{{ route('users.show', auth()->id()) }}">Mis datos</a>
-                                </li>
-                                <li>
-                                    <a class="bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="#">Subir un
-                                        producto</a>
                                 </li>
                                 <li>
                                     <form class="bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap"
